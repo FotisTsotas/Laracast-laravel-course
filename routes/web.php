@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
+use phpDocumentor\Reflection\Types\Collection;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,29 +15,19 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
-
-    
-    $files = File::files(resource_path("posts"));
-    $documents = [];
-
-  foreach ($files as $file){
-    $documents[] = YamlFrontMatter::parseFile($file);
-
-  }
-  ddd($documents);
-    // return view('posts', [
-    //     'posts' => Post::all()
-
-    // ]);
+Route::get('/', function () {  
+    return view('posts', [
+        'posts' =>  Post::all()
+    ]);
 });
 
 Route::get('posts/{post}', function ($slug) {
 
+
     return view('post', [
-        'post' => Post::find($slug)
+        'post' =>  Post::findOrFail($slug)
     ]);
 
 
 
-})->where('post', '[A-z_\-]+');
+});
