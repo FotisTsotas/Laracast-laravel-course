@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\View\Component;
 
