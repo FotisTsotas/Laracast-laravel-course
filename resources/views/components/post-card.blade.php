@@ -24,11 +24,11 @@
                 </div>
             </header>
             <div class="text-sm mt-4">
-                <p>
-                    {{ $post->excerpt ?? '' }}
-                </p>
+               
+                    {!! $post->excerpt ?? '' !!}
+                
                 <p class="mt-4">
-                    {{ $post->body ?? '' }}                      
+                    {!! $post->body ?? '' !!}                      
                     
                 </p>
             </div>
