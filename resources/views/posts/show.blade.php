@@ -48,11 +48,31 @@
                     </div>
                 </div>
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                  @foreach ($post->comments as $comment )
-                    <x-post-comment :comment="$comment"/>
-                  @endforeach
-                  
+                   @auth
+                   <form method="POST" action="/posts/{{$post->slug}}/comments" class="border border-gray-200 p-6 rounded-xl">
+                    @csrf
+                    <header class="flex items-center">
+                         <img src="https://i.pravatar.cc/40?u={{ auth()->user()->id}}" alt="" width="40" height="40" class=" mr-5 rounded-full">
+                        <h2>Want to participate?</h2>
+                    </header> 
+                    <div class="mt-8">
+                        <textarea name="body" placeholder="Leave Comment !" class="w-full text-s focus:outline-none focus:ring " cols="30" rows="10"></textarea>
+                    </div>
+                    <button type="submit">
+                    <div class=" bg-blue-500 text-center rounded hover:bg-red-500 w-20 p-2 text-s font-semibold text-white ml-3 hover">
+                       Post
+                    </div></button>
 
+                </form>
+                @else
+                    <p>
+                        <a  class="font-smibold hover:bg-blue-500 p-2  rounded-xl hover:text-white" href="/register">Register</a> or <a  class="font-smibold hover:bg-blue-500 p-2  rounded-xl hover:text-white" href="/login">Log In</a> for a leave a comment!
+                    </p>
+              
+                   @endauth
+                    @foreach ($post->comments as $comment )
+                    <x-post-comment :comment="$comment"/>
+                  @endforeach                  
                 </section>
             </article>
         </main>
