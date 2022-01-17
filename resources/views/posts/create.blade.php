@@ -1,7 +1,12 @@
 <x-layout>
-    <section class="px-6 py-8">
-        <x-panel class="max-w-sm mx-auto">
-            <form method="POST" action="/admin/posts">
+    <section class="max-w-md mx-auto py-8">
+        <h1  class="text-lg font-bold mb-4 mt-6 ">
+            Publish New Post
+        </h1>
+        <x-panel>
+            <form method="POST" 
+            action="/admin/posts" 
+            enctype="multipart/form-data">
                 @csrf
                 <div class="mb-6">
                     <label 
@@ -16,7 +21,7 @@
                         name="title" 
                         id="title"
                         value="{{ old('title') }}"
-                        required>
+                        >
                     @error('title')
                     <p class='text-red-500 text-xs mt-1'>{{ $message}}</p>
                     @enderror
@@ -34,10 +39,27 @@
                         name="slug" 
                         id="slug"
                         value="{{ old('slug') }}"
-                        required>
+                        >
                     @error('slug')
                     <p class='text-red-500 text-xs mt-1'>{{ $message}}</p>
                     @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" 
+                    for="thumbnail">
+                    Thumnail
+                    </label>
+
+                    <input 
+                        class="border border-gray-400 p-2 w-full" 
+                        type="file"                          
+                        id="thumbnail"
+                        name="thumbnail"                    
+                        >
+                    {{-- @error('thumbnail')
+                    <p class='text-red-500 text-xs mt-1'>{{ $message}}</p>
+                    @enderror --}}
                 </div>
 
                 <div class="mb-6">
@@ -51,7 +73,7 @@
                         id="excerpt"
                         class="w-full border border-gray-400 text-s focus:outline-none focus:ring " 
                         rows="5"
-                        required>
+                        >
                        {{ old('excerpt') }}                     
                     </textarea>
 
@@ -70,7 +92,7 @@
                         id="body"
                         class="w-full border border-gray-400 text-s focus:outline-none focus:ring " 
                         rows="5"                       
-                        required>
+                        >
                         {{ old('body') }}
                     </textarea>
 
