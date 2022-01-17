@@ -1,13 +1,14 @@
 <x-layout>
     <section class="max-w-md mx-auto py-8">
         <h1  class="text-lg font-bold mb-4 mt-6 ">
-            Publish New Post
+            Edit Post : {{ $post->title}}
         </h1>
         <x-panel>
             <form method="POST" 
-            action="/admin/posts" 
+            action="/admin/posts/{{ $post->slug }}" 
             enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 <div class="mb-6">
                     <label 
                         class="block mb-2 uppercase font-bold text-xs text-gray-700" 
@@ -20,7 +21,7 @@
                         type="text" 
                         name="title" 
                         id="title"
-                        value="{{ old('title') }}"
+                        value="{{ $post->title }}"
                         >
                     @error('title')
                     <p class='text-red-500 text-xs mt-1'>{{ $message}}</p>
@@ -38,28 +39,36 @@
                         type="text" 
                         name="slug" 
                         id="slug"
-                        value="{{ old('slug') }}"
+                        value="{{ $post->slug }}"
                         >
                     @error('slug')
                     <p class='text-red-500 text-xs mt-1'>{{ $message}}</p>
                     @enderror
                 </div>
 
-                <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" 
+                <div class="flex mt-6 mb-6">
+                    <label class="mr-3 block mb-2 uppercase font-bold text-xs text-gray-700" 
                     for="thumbnail">
-                    Thumnail
+                    Thumbnail
+                    <div flex-1>
+
+                        
+                        <img src=" {{ asset('storage/' . $post->thumbnail) }}"  width= "100" alt="" class="rounded-xl mr-5">
+    
+                    </div>
+
                     </label>
 
                     <input 
                         class="border border-gray-400 p-2 w-full" 
                         type="file"                          
                         id="thumbnail"
-                        name="thumbnail"                    
+                        name="thumbnail"
+                        value="storage/thumbnails/{{ $post->thumbnail }}"                  
                         >
-                    {{-- @error('thumbnail')
+                    @error('thumbnail')
                     <p class='text-red-500 text-xs mt-1'>{{ $message}}</p>
-                    @enderror --}}
+                    @enderror
                 </div>
 
                 <div class="mb-6">
@@ -74,7 +83,7 @@
                         class="w-full border border-gray-400 text-s focus:outline-none focus:ring " 
                         rows="5"
                         >
-                       {{ old('excerpt') }}                     
+                       {{ $post->excerpt  }}                     
                     </textarea>
 
                     @error('excerpt')
@@ -93,7 +102,7 @@
                         class="w-full border border-gray-400 text-s focus:outline-none focus:ring " 
                         rows="5"                       
                         >
-                        {{ old('body') }}
+                        {{ $post->body  }}
                     </textarea>
 
                     @error('body')
@@ -107,9 +116,8 @@
                     <select name="category_id" id="category_id">
                         @foreach (\App\Models\Category::all() as $category)
                         <option  
-                            value="{{ $category->id }}" 
-                            {{ old('category_id') == $category->id ? 'selected' : '' }}
-                            > {{ ucwords($category->name) }}
+                            value="{{ $category->id }}"> 
+                            {{ $category->name }}
                         </option>
                         @endforeach
                     </select>
@@ -118,7 +126,7 @@
                     <span class="text-red-500 text-xs mt-2"> {{$message}} </span>
                     @enderror
                 </div>
-                <x-submit-button>Publish</x-submit-button>
+                <x-submit-button>Update</x-submit-button>
 
             </form>
         </x-panel>

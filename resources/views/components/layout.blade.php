@@ -22,15 +22,23 @@
 
             <div class="mt-8 md:mt-0 flex items-center ">
                 @auth
-                <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}! </span>
-                <form method="POST" action="/logout"
-                    class="bg-blue-500 rounded hover:bg-red-500 p-2 text-s font-semibold text-white ml-6 hover">
-                    @csrf
+                <x-dropdown>
+                    <x-slot name="trigger">
 
-                    <button type="submit">Log Out</button>
+                        <button class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</button>
 
-
-                </form>
+                    </x-slot>
+                    <div class="flex flex-col m-2 text-center text-white">
+                        <a  class="bg-blue-500 hover:bg-red-400 rounded-xl p-2 mt-3 " href="/admin/posts"> All Posts</a>
+                        <a  class="bg-blue-500 hover:bg-red-400 rounded-xl mt-3 p-2 " href="/admin/posts/create"> Create a New Post</a>
+                        <form method="POST" action="/logout"
+                        class="bg-blue-500 hover:bg-red-400 rounded-xl mt-3 p-2 ">
+                        @csrf    
+                        <button type="submit">Log Out</button>   
+                    </form>
+                    </div>
+                </x-dropdown>
+                
                 @else
 
                 <a href="/register" class="text-xs font-bold uppercase">
