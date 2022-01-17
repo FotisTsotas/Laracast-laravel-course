@@ -27,11 +27,7 @@
                
                     {!! $post->excerpt ?? '' !!}
                 
-                <p class="mt-4">
-                    {!! $post->body ?? '' !!}                      
-                    
-                </p>
-            </div>
+             </div>
             <footer class="flex justify-between items-center mt-8">
                 <div class="flex items-center text-sm">
                     <img src="/images/lary-avatar.svg" alt="Lary avatar">
