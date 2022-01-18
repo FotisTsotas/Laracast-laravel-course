@@ -29,8 +29,12 @@
 
                     </x-slot>
                     <div class="flex flex-col m-2 text-center text-white">
-                        <a  class="bg-blue-500 hover:bg-red-400 rounded-xl p-2 mt-3 " href="/admin/posts"> All Posts</a>
+                        @can('admin')
+                        <a  class="bg-blue-500 hover:bg-red-400 rounded-xl p-2 mt-3 " href="/admin/posts
+                        "> Dashboard</a>
                         <a  class="bg-blue-500 hover:bg-red-400 rounded-xl mt-3 p-2 " href="/admin/posts/create"> Create a New Post</a>
+                        @endcan
+                    
                         <form method="POST" action="/logout"
                         class="bg-blue-500 hover:bg-red-400 rounded-xl mt-3 p-2 ">
                         @csrf    

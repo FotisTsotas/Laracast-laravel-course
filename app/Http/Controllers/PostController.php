@@ -8,11 +8,12 @@ use App\Models\Category;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
     public function index(){      
-
+    
     return view('posts.index', [
         'posts' =>   Post::latest()->filter(
             request(['search', 'category', 'author'])
